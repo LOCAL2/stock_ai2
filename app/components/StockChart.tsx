@@ -182,7 +182,12 @@ export default function StockChart({ symbol }: StockChartProps) {
                 borderRadius: '8px',
                 fontSize: '14px',
               }}
-              formatter={(value: number) => [`$${value.toFixed(2)}`, 'ราคา']}
+              formatter={(value: number | string | undefined) => {
+                if (typeof value === 'number') {
+                  return [`$${value.toFixed(2)}`, 'ราคา'];
+                }
+                return [String(value || ''), 'ราคา'];
+              }}
               labelFormatter={formatDate}
             />
             <Line
